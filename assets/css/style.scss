@@ -1,0 +1,66 @@
+---
+---
+
+@import 'jekyll-theme-hacker';
+
+body {
+    min-height: 100vh;
+}
+
+#main_content {
+	h2 {
+		margin-top: 48px;
+		margin-bottom: 10px;
+	}
+
+	h1 + h2 {
+		margin-top: 0px !important;
+	}
+
+	h3 {
+		margin-top: 32px;
+		border-bottom: 1px dashed #648e13;
+	}
+
+	h2 + h3 {
+		margin-top: 0px !important;
+	}
+
+	ul {
+		margin-top: 32px;
+		margin-left: -40px;
+	}
+
+	h2 + ul {
+		margin-top: 0px !important;
+	}
+
+	h3 + ul {
+		margin-top: 0px !important;
+	}
+
+	th {
+		border-bottom: 1px dotted #fff;
+	}
+
+	li {
+		color: #e8e8e8
+	}
+
+	li code {
+		background: none;
+		background-color: transparent;
+		color: #c6bfb6
+	}
+
+	li a {
+		text-decoration: none;
+	}
+
+	summary {
+		cursor: pointer;
+		-webkit-user-select: none; /* Safari */
+		-ms-user-select: none; /* IE 10 and IE 11 */
+		user-select: none; /* Standard syntax */
+	}
+}

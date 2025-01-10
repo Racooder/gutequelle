@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/copper-os/assets/css/style.css?v=e91e64eab9a1f23e9fad8cf47de3c61da3cd9b77">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup theme-color -->
+<!-- start theme color meta headers -->
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- end theme color meta headers -->
+
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/copper-os/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Cttp (Copper Text Transfer Protocol) | Copper OS</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="Cttp (Copper Text Transfer Protocol)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A operating system for computercraft and what goes with it." />
+<meta property="og:description" content="A operating system for computercraft and what goes with it." />
+<link rel="canonical" href="http://localhost:4000/copper-os/libs/Cttp.html" />
+<meta property="og:url" content="http://localhost:4000/copper-os/libs/Cttp.html" />
+<meta property="og:site_name" content="Copper OS" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Cttp (Copper Text Transfer Protocol)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"A operating system for computercraft and what goes with it.","headline":"Cttp (Copper Text Transfer Protocol)","url":"http://localhost:4000/copper-os/libs/Cttp.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <a id="a-title" href="/copper-os/">
+          <h1>Copper OS</h1>
+        </a>
+        <h2>A operating system for computercraft and what goes with it.</h2>
+
+        <section id="downloads">
+          
+          <a href="https://github.com/Racooder/copper-os" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1 id="cttp-copper-text-transfer-protocol">Cttp (Copper Text Transfer Protocol)</h1>
+
+<p>Cttp is a extension of <a href="CNet">CNet</a></p>
+
+<!-- <details>
+<summary>Table of contents</summary>
+    <h3><a href="#examples">Examples</a></h3>
+    <ul>
+        <li><a href="#server-hosting">Server Hosting</a></li>
+        <li><a href="#client-handling">Client Handling</a></li>
+    </ul>
+</details> -->
+
+<h2 id="server-hosting">Server Hosting</h2>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Cttp</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"Cttp"</span>
+
+<span class="c1">-- Requests can be handled by defining Get, Post and Delete mappings</span>
+<span class="c1">-- The request Cttp.GetRequest("/path", "Request message") will be handled by this function</span>
+<span class="n">Cttp</span><span class="p">.</span><span class="n">GetMapping</span><span class="p">(</span><span class="s2">"/path"</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="n">body</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Received request: "</span> <span class="o">..</span> <span class="n">body</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">"Response message"</span> <span class="c1">-- Status code and response message</span>
+    <span class="c1">-- Messages can be any lua data type that can be serialized</span>
+<span class="k">end</span><span class="p">)</span>
+
+<span class="c1">-- Before hosting is possible, Cttp must be set up</span>
+<span class="n">Cttp</span><span class="p">.</span><span class="n">setup</span><span class="p">(</span><span class="k">function</span> <span class="p">()</span>
+    <span class="n">Cttp</span><span class="p">.</span><span class="n">host</span><span class="p">(</span><span class="s2">"server-name"</span><span class="p">)</span>
+<span class="k">end</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="client-handling">Client Handling</h2>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Cttp</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"Cttp"</span>
+
+<span class="c1">-- Before connecting or sending requests is possible, Cttp must be set up</span>
+<span class="n">Cttp</span><span class="p">.</span><span class="n">setup</span><span class="p">(</span><span class="k">function</span> <span class="p">()</span>
+    <span class="kd">local</span> <span class="n">socket</span> <span class="o">=</span> <span class="n">Cttp</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"server-name"</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">response</span> <span class="o">=</span> <span class="n">Cttp</span><span class="p">.</span><span class="n">sendRequest</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="n">Cttp</span><span class="p">.</span><span class="n">GetRequest</span><span class="p">(</span><span class="s2">"/path"</span><span class="p">,</span> <span class="s2">"Request message"</span><span class="p">))</span>
+<span class="k">end</span><span class="p">)</span>
+</code></pre></div></div>
+
+      </section>
+    </div>
+  </body>
+</html>

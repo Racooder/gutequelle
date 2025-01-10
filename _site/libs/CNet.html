@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/copper-os/assets/css/style.css?v=e91e64eab9a1f23e9fad8cf47de3c61da3cd9b77">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup theme-color -->
+<!-- start theme color meta headers -->
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- end theme color meta headers -->
+
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/copper-os/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>CNet (Copper Networking) | Copper OS</title>
+<meta name="generator" content="Jekyll v3.9.5" />
+<meta property="og:title" content="CNet (Copper Networking)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A operating system for computercraft and what goes with it." />
+<meta property="og:description" content="A operating system for computercraft and what goes with it." />
+<link rel="canonical" href="http://localhost:4000/copper-os/libs/CNet.html" />
+<meta property="og:url" content="http://localhost:4000/copper-os/libs/CNet.html" />
+<meta property="og:site_name" content="Copper OS" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="CNet (Copper Networking)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"A operating system for computercraft and what goes with it.","headline":"CNet (Copper Networking)","url":"http://localhost:4000/copper-os/libs/CNet.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <a id="a-title" href="/copper-os/">
+          <h1>Copper OS</h1>
+        </a>
+        <h2>A operating system for computercraft and what goes with it.</h2>
+
+        <section id="downloads">
+          
+          <a href="https://github.com/Racooder/copper-os" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1 id="cnet-copper-networking">CNet (Copper Networking)</h1>
+
+<p>CNet is the networking library of Copper OS.</p>
+
+<!-- <details>
+<summary>Table of contents</summary>
+    <h3><a href="#examples">Examples</a></h3>
+    <ul>
+        <li><a href="#server-hosting">Server Hosting</a></li>
+        <li><a href="#client-handling">Client Handling</a></li>
+    </ul>
+</details> -->
+
+<h2 id="server-hosting">Server Hosting</h2>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CNet</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"CNet"</span>
+
+<span class="c1">-- Receiving messages is possible by overriding the message event handler</span>
+<span class="n">CNet</span><span class="p">.</span><span class="n">eventHandlers</span><span class="p">.</span><span class="n">message</span> <span class="o">=</span> <span class="k">function</span> <span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">socket</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Received message: "</span> <span class="o">..</span> <span class="n">message</span><span class="p">)</span>
+    <span class="n">CNet</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="s2">"Response message"</span><span class="p">)</span>
+    <span class="n">CNet</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="p">{</span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">})</span> <span class="c1">-- Messages can be any lua data type that can be serialized</span>
+<span class="k">end</span>
+
+<span class="c1">-- Before hosting or sending messages is possible, CNet must be set up</span>
+<span class="n">CNet</span><span class="p">.</span><span class="n">setup</span><span class="p">(</span><span class="k">function</span> <span class="p">()</span>
+    <span class="n">CNet</span><span class="p">.</span><span class="n">host</span><span class="p">(</span><span class="s2">"server-name"</span><span class="p">)</span>
+<span class="k">end</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="client-handling">Client Handling</h2>
+
+<div class="language-lua highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CNet</span> <span class="o">=</span> <span class="nb">require</span> <span class="s2">"CNet"</span>
+
+<span class="c1">-- Before connecting or sending messages is possible, CNet must be set up</span>
+<span class="n">CNet</span><span class="p">.</span><span class="n">setup</span><span class="p">(</span><span class="k">function</span> <span class="p">()</span>
+    <span class="kd">local</span> <span class="n">socket</span> <span class="o">=</span> <span class="n">CNet</span><span class="p">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"server-name"</span><span class="p">)</span>
+    <span class="n">CNet</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">socket</span><span class="p">,</span> <span class="s2">"Hello, server!"</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">response</span> <span class="o">=</span> <span class="n">CNet</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">socket</span><span class="p">)</span> <span class="c1">-- Blocks until a message is received</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Received response: "</span> <span class="o">..</span> <span class="n">response</span><span class="p">)</span>
+
+    <span class="c1">-- Shorter version of the above code</span>
+    <span class="kd">local</span> <span class="n">socket2</span> <span class="o">=</span> <span class="n">CNet</span><span class="p">.</span><span class="n">connectAndSend</span><span class="p">(</span><span class="s2">"server2"</span><span class="p">,</span> <span class="s2">"Hello, server!"</span><span class="p">)</span>
+    <span class="kd">local</span> <span class="n">response2</span> <span class="o">=</span> <span class="n">CNet</span><span class="p">.</span><span class="n">listen</span><span class="p">(</span><span class="n">socket2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Received response: "</span> <span class="o">..</span> <span class="n">response2</span><span class="p">)</span>
+
+    <span class="c1">-- Even shorter version</span>
+    <span class="kd">local</span> <span class="n">response3</span> <span class="o">=</span> <span class="n">CNet</span><span class="p">.</span><span class="n">connectSendAndListen</span><span class="p">(</span><span class="s2">"server3"</span><span class="p">,</span> <span class="s2">"Hello, server!"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Received response: "</span> <span class="o">..</span> <span class="n">response3</span><span class="p">)</span>
+
+    <span class="c1">-- It's also possible to define a callback function to prevent blocking</span>
+    <span class="n">CNet</span><span class="p">.</span><span class="n">connectSendAndListen</span><span class="p">(</span><span class="s2">"server4"</span><span class="p">,</span> <span class="s2">"Hello, server!"</span><span class="p">,</span> <span class="k">function</span> <span class="p">(</span><span class="n">response4</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Received response: "</span> <span class="o">..</span> <span class="n">response4</span><span class="p">)</span>
+    <span class="k">end</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"This message will be printed before the response is received"</span><span class="p">)</span>
+<span class="k">end</span><span class="p">)</span>
+</code></pre></div></div>
+
+      </section>
+    </div>
+  </body>
+</html>
